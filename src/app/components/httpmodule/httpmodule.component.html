@@ -1,0 +1,8 @@
+<p>httpmodule works!</p>
+<ul>
+    <li *ngFor="let user of users">
+        <p>Имя пользователя: {{user?.name}}</p>
+        <p>Возраст пользователя: {{user?.age}}</p>
+    </li>
+</ul>
+<button (click)="postData()">POST</button>

@@ -1,0 +1,56 @@
+<div>
+    <h1 #title>Angular tutorial</h1>
+    <h1>ElementRef demo</h1>
+    <ng-template #tpl let-title="fromContext">
+        <h1>{{title}}</h1>
+    </ng-template>
+</div>
+
+<h3>ViewContainerRef</h3>
+<div>
+    <div>ng-container</div>
+    <ng-container #views></ng-container>
+    <div>ng-template</div>
+    <ng-template #tpl1 let-title="contextTitle" let-autor="contextAutor">
+        <div>
+            <p>1. {{title}}</p>
+            <p>2. {{autor}}</p>
+        </div>
+    </ng-template>
+</div>
+
+<h3>Директивы ngTemplateOutlet и ngComponentOutlet</h3>
+<div>
+    <div>ng-container</div>
+    <ng-container *ngTemplateOutlet="tpl2"></ng-container>
+    <div>ng-template</div>
+    <ng-template #tpl2>
+        <ul>
+            <li>Item 1</li>
+            <li>Item 2</li>
+            <li>Item 3</li>
+        </ul>
+    </ng-template>
+</div>
+<div>
+    <div>ng-container</div>   
+    <ng-container *ngTemplateOutlet="tpl3; context: items"></ng-container>
+    <div>ng-template</div>     
+    <ng-template #tpl3 let-items="local">
+        <ul>
+          <li *ngFor="let item of items" [textContent]="item"></li>
+          <li *ngFor="let item of items">{{item}}</li>
+        </ul>
+      </ng-template>
+</div>
+
+<ng-container *ngTemplateOutlet="greet"></ng-container>
+<hr>
+<ng-container *ngTemplateOutlet="eng; context: myContext"></ng-container>
+<hr>
+<ng-container *ngTemplateOutlet="svk; context: myContext"></ng-container>
+<hr>
+
+<ng-template #greet><span>Hello</span></ng-template>
+<ng-template #eng let-name><span>Hello {{name}}!</span></ng-template>
+<ng-template #svk let-person="localSk"><span>Ahoj {{person}}!</span></ng-template>

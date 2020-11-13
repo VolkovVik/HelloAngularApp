@@ -1,0 +1,9 @@
+<ng-content select="h1"></ng-content>
+<p>Дочерний компонент {{title}}</p>
+<ng-content select="h2"></ng-content>
+<p (click)="onSelectUser(title)">Данные дочернего компонента {{title}}</p>
+<p (click)="onSelectUser(userName)">Имя пользователя: {{userName}}</p>
+<input [ngModel]="userName" (ngModelChange)="onNameChange($event)" />
+<p (click)="onSelectUser(userAge.toString())">Возраст пользователя: {{userAge}}</p>
+<p (click)="onSelectUser(user?.name)">Имя пользователя: {{user?.name}}</p>
+<p (click)="onSelectUser(user?.age)">Возраст пользователя: {{user?.age}}</p>

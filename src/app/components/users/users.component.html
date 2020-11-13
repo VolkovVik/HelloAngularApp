@@ -1,0 +1,14 @@
+<p>Сервисы</p>
+<button (click)="setRequestGitHub()">GitHub</button>
+<button (click)="setRequestJsonplaceholder()">Jsonplaceholder</button>
+<div>
+  <ul>
+    <li *ngFor="let item of users">
+      <app-user-card [user]="item" (userSelected)="selectedUser=item"></app-user-card>
+      <span (click)="removeUser(item.name)">X</span>
+    </li>
+  </ul>
+  <input type="text" #userNameElement />
+  <button (click)="addUser(userNameElement.value);userNameElement.value='';">Add</button>
+  <h1>{{selectedUser?.name}}</h1>
+</div>

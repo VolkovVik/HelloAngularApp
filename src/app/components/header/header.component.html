@@ -1,0 +1,31 @@
+<h3>Передача данных между компонентами</h3>
+
+<div>Заданный пользователь {{selectedUser?.name}}</div>
+<div>Заданные данные: {{name}}</div>
+<input type="text" [(ngModel)]="name">
+<input type="number" [(ngModel)]="age">
+<p>Имя пользователя: {{user?.name}}</p>
+<p>Возраст пользователя: {{user?.age}}</p>
+
+<h3>Проекция контента с помощью ng-content</h3>
+<app-child [user]="user" [(userName)]="name" [userAge]="age" (userSelected)="onChanged($event)">
+    <h1 [style.font-size.px]="16">Родительский компонент {{title}}. Элемент h1</h1>
+    <h2 [style.font-size.px]="16">Родительский компонент {{title}}. Элемент h2</h2>
+</app-child>
+
+<h3>Жизненный цикл компонента</h3>
+<app-lifecycle [name]="name"></app-lifecycle>
+
+<h3>Шаблонные переменные</h3>
+<app-template-value #counter></app-template-value>
+<button (click)="counter.increment()">+</button>
+<button (click)="counter.decrement()">-</button>
+
+<h3>ViewChild</h3>
+<button (click)="increment()">+</button>
+<button (click)="decrement()">-</button>
+
+<h3>ContentChild</h3>
+<app-template-value>
+    <h3 #headerContent>Добро пожаловать {{title}}!</h3>
+</app-template-value>

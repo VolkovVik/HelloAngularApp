@@ -1,0 +1,13 @@
+<p>pages works!</p>
+
+<a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Home</a>
+<a [routerLink]="['child', 1]" routerLinkActive="active">Child 1</a>
+<a [routerLink]="['child', 2]" routerLinkActive="active">Child 2</a>
+<a [routerLink]="['child', 3]" routerLinkActive="active">Child 3</a>
+<a [routerLink]="['child', 4]" routerLinkActive="active">Child 4</a>
+<a [routerLink]="['child', 5]" routerLinkActive="active">Child 5</a>
+<a [routerLink]="['child', 6]" [queryParams]="{q:12345}" routerLinkActive="active">Child 6?q=123456</a>
+
+<button (click)="goToUser()">GoToUser</button>
+
+<router-outlet></router-outlet>

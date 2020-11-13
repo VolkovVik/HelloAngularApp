@@ -1,0 +1,53 @@
+<p>reactive-forms works!</p>
+
+<input [formControl]="name" />
+
+<fieldset [formGroup]="fullName">
+  <input formControlName="firstName" />
+  <input formControlName="lastName" />
+</fieldset>
+
+<fieldset [formGroup]="profileForm" (ngSubmit)="onSubmit()">  
+    <label>
+        First Name:
+        <input type="text" formControlName="firstName">
+    </label>  
+    <label>
+        Last Name:
+        <input type="text" formControlName="lastName">
+    </label>  
+    <div formGroupName="address">
+        <h3>Address</h3>  
+        <label>
+            Street:
+            <input type="text" formControlName="street">
+        </label>    
+        <label>
+            City:
+            <input type="text" formControlName="city">
+        </label>        
+        <label>
+            State:
+            <input type="text" formControlName="state">
+        </label>    
+        <label>
+            Zip Code:
+            <input type="text" formControlName="zip">
+        </label>
+    </div>
+    <p>Form Status: {{ profileForm.status }}</p>
+    <p>Form Errors: {{ profileForm.errors }}</p>
+</fieldset>
+
+<form [formGroup]="userListControl">
+  <ul formArrayName="users">
+    <li *ngFor="let userControl of getUserControl(); let i = index">
+      <input formControlName="{{i}}">
+      <button (click)="removeUserControl(i)">Remove</button>
+    </li>
+  </ul>
+</form>
+
+<button (click)="addUserControl()">Add</button>
+
+

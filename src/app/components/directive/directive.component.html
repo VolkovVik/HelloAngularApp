@@ -1,0 +1,38 @@
+<p>Директивы</p>
+
+<div appBold selectedSize="28px" [defaultSize]="'14px'">Атрибут директива bold</div>
+<div appColor #colory1="colory">Атрибут директива appColor1</div>
+<div appColor #colory2="colory">Атрибут директива appColor2</div>
+<button (click)="colory1.setRandomColor();colory2.setRandomColor();">Change color</button>
+
+<div *ngFor="let delay of [1,2,3,4,5]">
+    <div *appDelay="delay">Структурная директива</div>
+</div>
+
+<h3>Структурная директива ngIf</h3>
+<div *ngIf="condition; then thenBlock else elseBlock"></div>
+<ng-template #thenBlock>Then template</ng-template>
+<ng-template #elseBlock>Else template</ng-template>
+<br>
+<button (click)="toggle()">Toggle</button>
+
+<h3>Структурная директива ngFor</h3>
+<ul>
+    <li *ngFor="let item of items">{{item}}</li>
+</ul>
+
+<h3>Структурная директива ngSwitch</h3>
+<div [ngSwitch]="count">
+    <ng-template ngSwitchCase="1">{{count * 10}}</ng-template>
+    <ng-template ngSwitchCase="2">{{count * 100}}</ng-template>
+    <ng-template ngSwitchDefault>{{count * 1000}}</ng-template>
+    <!-- <p *ngSwitchCase="'Mercedes'">This is Mercedes</p>
+    <p *ngSwitchDefault>Car is undefined</p> -->
+</div>
+
+<h3>Динамический компонент</h3>
+
+<div>
+    <ng-template #book></ng-template>
+    <button (click)="addBook()">Add book</button>
+</div>

@@ -1,0 +1,15 @@
+<p>animation works!</p>
+<div class="panel">
+    <div class="header">
+        <p (click)="expand()">Toggle panel</p>
+    </div>
+
+    <div class="content" [@expandedPanel]="state">
+        <h1>Title</h1>
+        <p>Expanded panel</p>
+    </div>
+</div>
+
+<div @animationTriggerName *ngIf="isVisible" (@animationTriggerName.start)="whenAnimate($event)" (@animationTriggerName.done)="whenAnimate($event)">
+    <h1>Welcome to webdraftt.com!</h1>
+</div>

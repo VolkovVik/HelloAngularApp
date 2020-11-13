@@ -1,0 +1,13 @@
+<p (click)="setRandomColor()" [style.color]="mycolor">Привязка Angular!</p>
+
+
+<input type="text" (input)="setColor($event.target.value)" (keydown.enter)="setColor('black')" (keydown.control.shift)="setColor('white')" /><br>
+<input type="text" #colorElement />
+<button (click)="setColor(colorElement.value)">Set color</button><br>
+
+<input type="text" value={{title}} /><br>
+<input type="text" value={{getTitle()}} /><br>
+<input type="text" [value]='title' /><br>
+<input type="text" value={{title}} (input)="setTitle($event.target.value)"/><br>
+<input type="text" [(ngModel)]="title" value={{title}}/><br>
+<img [src]="image" alt="" width="50" height="50">

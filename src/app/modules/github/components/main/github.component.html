@@ -1,0 +1,22 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+<p>github works!</p>
+
+<div>
+    <input type="text" id="search" [formControl]="name">
+    <label for="search">Поиск пользователей GitHub</label>    
+</div>
+
+<form [formGroup]="userListControl">
+    <ul formArrayName="users">
+      <li *ngFor="let userControl of getUserControl(); let i = index"> 
+        <div [formGroupName]="i">
+            <input formControlName='login'>
+            <input formControlName='image' #avatar>        
+            <img [src]="avatar.value" alt="" width="50" height="50">
+          </div>
+      </li>
+    </ul>
+  </form>
+
+
