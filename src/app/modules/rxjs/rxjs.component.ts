@@ -13,7 +13,13 @@ import {
 import { Subject, BehaviorSubject, ReplaySubject } from 'rxjs';
 
 import {
+  buffer,
+  bufferCount,
+  bufferTime,
+  bufferToggle,
+  bufferWhen,
   catchError,
+  combineAll,
   concatMap,
   delay,
   finalize,
@@ -24,6 +30,7 @@ import {
   refCount,
   retryWhen,
   scan,
+  startWith,
   tap,
   timeout,
 } from 'rxjs/operators';
@@ -81,9 +88,11 @@ export class RxjsComponent implements OnInit, OnDestroy {
     // this.MethodSubject();
     // this.MethodBehaviorSubject();
     // this.MethodReplaySubject();
-    this.CreatePipeOperator();
+    //this.CreatePipeOperator();
 
     //this.MethodCombine();
+
+    this.MethodCombine();
 
     this.subscriptions.push(
       // Кнопки
@@ -301,6 +310,33 @@ export class RxjsComponent implements OnInit, OnDestroy {
 
   MethodFilter(): void {
     // Методы фильтрации
+
+    // Операторы серии Audit
+    // ожидает завершение функции и инициирует выдачу последнего значения
+    //const o = interval(250).pipe(audit((value) => interval(1000))); // Результат:  4, 9, 14, 19, 24...
+    //const o = timer(0,200).pipe(auditTime(1000));
+
+    // Операторы серии Throttle
+    // инициирует выдачу последнего полученного значения и ожидает завершение функции
+    //const o = interval(250).pipe(throttle((value) => interval(1000))); // Результат:  0, 5, 10, 15, 20...
+    //const o = timer(0,200).pipe(throttleTime(1000));
+
+    // Операторы серии Buffer
+    // сохраняет все принятые значения и инициализирет выдачу после выполнения функции
+    //const o = interval(250).pipe(buffer(interval(1000)));
+    //const o = interval(1000).pipe(bufferCount(5)); // [0, 1, 2, 3, 4], [5, 6, 7, 8, 9],
+    //const o = interval(1000).pipe(bufferTime(5000));
+    // параметр запуска и останова функции
+    // const o = interval(500).pipe(
+    //   bufferToggle(timer(0, 2000).pipe(take(3)), (value) =>
+    //     of(value).pipe(delay(2000))
+    //   )
+    // );
+    const o = interval(500).pipe(
+      take(8),
+      bufferWhen(() => interval(2100).pipe(take(2)))
+    );
+
     //const o = range(0,100).pipe(filter(number=> number>50));
     //const o = range(0,100).pipe(first(number=> number>50));
     //const o = range(0,100).pipe(last(number=> number>50));
@@ -309,9 +345,8 @@ export class RxjsComponent implements OnInit, OnDestroy {
     //const o = range(0,100).pipe(debounce(number=> timer(1000 * number)));
     //const o = range(0,100).pipe(debounceTime(1000));
     //const o = from([0,1,0,0,1,1,100]).pipe(distinctUntilChanged());
-    //const o = timer(0,200).pipe(throttleTime(1000));
-    //const o = timer(0,200).pipe(auditTime(1000));
-    const o = timer(0, 200).pipe(debounceTime(200));
+
+    //const o = timer(0, 200).pipe(debounceTime(200));
 
     o.subscribe({
       next: (value: any) => console.log('Next:', value),
@@ -323,6 +358,32 @@ export class RxjsComponent implements OnInit, OnDestroy {
   MethodCombine(): void {
     // Методы кобинирования
     // const o = interval(500).pipe(
+    //   map((value) => interval(250).pipe(take(3))),
+    //   take(3),
+    //   combineAll()
+    // );
+
+    // const source$ = interval(1000).pipe(take(2));
+    // const example$ = source$.pipe(
+    //   map((val) =>
+    //     interval(1000).pipe(
+    //       map((i) => `Result (${val}): ${i}`),
+    //       take(3)
+    //     )
+    //   )
+    // );
+    // const o = example$.pipe(combineAll());
+
+    //const o = combineLatest(of(1, 2, 3), of(4, 5, 6), of(7, 8, 9));
+
+    // const o = [1, 5, 10].map(
+    //   n => of(n).pipe(
+    //     delay(n * 1000),   // emit 0 and then emit n after n seconds
+    //     startWith(0),
+    //   )
+    // );
+
+    // const o = interval(500).pipe(
     //   tap(value=>console.log(value)),
     //   take(10));
 
@@ -332,11 +393,11 @@ export class RxjsComponent implements OnInit, OnDestroy {
     //   takeLast(3)
     // );
 
-    const o = interval(500).pipe(
-      tap((value) => console.log(value)),
-      takeWhile((value) => value < 10),
-      takeLast(3)
-    );
+    // const o = interval(500).pipe(
+    //   tap((value) => console.log(value)),
+    //   takeWhile((value) => value < 10),
+    //   takeLast(3)
+    // );
 
     //const timerOne = timer(1000, 4000).pipe(take(3));
     //const timerTwo = timer(2000, 4000).pipe(take(3));
@@ -345,14 +406,14 @@ export class RxjsComponent implements OnInit, OnDestroy {
     //const o = zip(timerOne, timerTwo,timerThree);
     //const o = forkJoin(timerOne, timerTwo,timerThree);
 
-    //const timerOne = timer(10, 1000).pipe(take(3), mapTo('first'));
-    //const timerTwo = timer(0, 100).pipe(take(3), mapTo('second'));
+    const timerOne = timer(10, 1000).pipe(take(3), mapTo('first'));
+    const timerTwo = timer(0, 100).pipe(take(3), mapTo('second'));
     //const o = timerOne.pipe(concat(timerTwo));
     //const o = timerOne.pipe(merge(timerTwo));
     //const o = timerOne.pipe(startWith(5));
     //const o = timerOne.pipe(withLatestFrom(timerTwo));
     //const o = timerOne.pipe(pairwise());
-    //const o = race(timerOne, timerTwo);
+    const o = race(timerOne, timerTwo);
 
     o.subscribe({
       next: (value: any) => console.log('Next:', value),
